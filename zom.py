@@ -11,14 +11,6 @@ header = {'User-Agent':'Mozilla/5.0 (Macintosh: Intel Mac OS X 10 11 2) AppleWeb
 
 html = requests.get(link, headers = hdr)
 soup = BeautifulSoup(html.text, 'lxml')
-
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 95b0e0f (Initial commit)
->>>>>>> fa30d79 (Initial commit)
 location = soup.find_all('span', class_ = 'sc-ks3f96-1 gETRUR')
 loc=[]
 for l in location:
@@ -46,12 +38,7 @@ k=k[:15]
 for i in range(len(k)):
     if k[i][-1]==')':
         s.append(k[i])
-print(s)
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-=======
+
 #location = soup.find_all('span', class_ = 'sc-ks3f96-1 gETRUR')
 #loc=[]
 #for l in location:
@@ -91,6 +78,4 @@ print(l)
   #  price = product.find('span', class_ = 'rupee').text
    # print(f'Product = {product_name}')
     #print(f'Price = ₹{price}')
->>>>>>> 660f2e0 (Initial commit)
->>>>>>> 95b0e0f (Initial commit)
->>>>>>> fa30d79 (Initial commit)
+

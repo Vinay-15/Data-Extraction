@@ -34,6 +34,7 @@ def ratings(lnk):                                                #to get the rat
                      rate.append(r.text)                         #getting all the text from the ratings block
               print(f'Ratings = {rate[-1][:3]}⭐')               #the last element contains a string with the rate being the starting 3 elements
 
+
 def sections(lnk):                                               #to get the categories sections (left panel)
        html = requests.get(lnk, headers=hdr)
        soup = BeautifulSoup(html.text, 'lxml')
@@ -46,28 +47,7 @@ def sections(lnk):                                               #to get the cat
        elif lnk[12:15] == "zom":
               section = soup.find_all('p')                       #gettiing all the p tags
               s = []
-              k = []
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 95b0e0f (Initial commit)
->>>>>>> fa30d79 (Initial commit)
-              c = []
-              for sec in section:
-                     k.append(sec.text)
-              k = k[3:16]                                         #removing unwanted data from the list
-              for i in range(len(k)):
-                     if k[i][-1] == ')':                          #Recomended (8) #checking if the last element is ')' then appending it to a list
-                            s.append(k[i])
-              for p in s:
-                     j = p.split('(')                             #splitting the category so that it only has the element [Pastas] instead of [Pastas (8)]
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-=======
+              k = []                                             #splitting the category so that it only has the element [Pastas] instead of [Pastas (8)]
               c = []                                             #making empty lists
               d = []
               for sec in section:
@@ -79,10 +59,7 @@ def sections(lnk):                                               #to get the cat
                      if d[i][-1] == ')':                         #Recomended (8) #checking if the last element is ')' then appending it to a list
                             s.append(d[i])
               for p in s:
-                     j = p.split('(')                            #splitting the category so that it only has the element [Pastas] instead of [Pastas (8)]
->>>>>>> 660f2e0 (Initial commit)
->>>>>>> 95b0e0f (Initial commit)
->>>>>>> fa30d79 (Initial commit)
+                     j = p.split('(')
                      c.append(j[0])
               return c
 
@@ -97,26 +74,6 @@ def check(s):                                                     #to check if t
        for i in a:
               count = 0
               for j in cat:
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 95b0e0f (Initial commit)
->>>>>>> fa30d79 (Initial commit)
-                     if i.lower()==j:
-                            count+=1
-                     else:
-                            count+=0
-              if(count>=1):
-                     print(f'{i} is present')
-              else:
-                     print(f'{i} is not present')
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-=======
                      if i.lower()==j:                            #if i=j then count is incremented with 1 else with 0
                             count+=1
                      else:
@@ -141,51 +98,19 @@ def products(lnk):
               for product in products:
                      product_names.append(product.text)
               print(product_names)
->>>>>>> 660f2e0 (Initial commit)
->>>>>>> 95b0e0f (Initial commit)
->>>>>>> fa30d79 (Initial commit)
 
 
 link=input('Enter the URL:')
 hdr = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0',
        'Accept-Language' : 'en-GB,enl;q=0.5',
        'Referer' : 'https://google.com',
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 660f2e0 (Initial commit)
->>>>>>> 95b0e0f (Initial commit)
->>>>>>> fa30d79 (Initial commit)
-       'DNT' : '1'}
-
-locaton(link)                                                    #to find the location
-ratings(link)                                                    #to find the ratings
-wp_category=sections(link)                                       #to find the categories from the webpage
-print(wp_category)                                               #to print webpage category
-check(wp_category)                                               #to check if certain category is present
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
-=======
        'DNT' : '1'}                                              #header used to replicate as a user request rather than python request while accesing websites
->>>>>>> 1e0f363 (fourth)
+
 
 #locaton(link)                                                    #to find the location
 #ratings(link)                                                    #to find the ratings
 #wp_category=sections(link)                                       #to find the categories from the webpage
 #print(wp_category)                                               #to print webpage category
 #check(wp_category)                                               #to check if certain category is present
-products(link)
->>>>>>> 660f2e0 (Initial commit)
->>>>>>> 95b0e0f (Initial commit)
->>>>>>> fa30d79 (Initial commit)
+#products(link)
+
