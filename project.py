@@ -48,20 +48,21 @@ def sections(lnk):                                               #to get the cat
               section = soup.find_all('p')                       #gettiing all the p tags
               s = []
               k = []                                             #splitting the category so that it only has the element [Pastas] instead of [Pastas (8)]
-              c = []                                             #making empty lists
-              d = []
+              d = []                                             #making empty lists
+              c = []
               for sec in section:
                      k.append(sec.text)                          #appending all the p tag elements to the list k
               for i in k:
                      if i!='':                                   #checking if any empty string elements are presnet in the list
                             d.append(i)                                              #removing unwanted data from the list
-              for i in range(len(d)):
-                     if d[i][-1] == ')':                         #Recomended (8) #checking if the last element is ')' then appending it to a list
-                            s.append(d[i])
+              for j in range(len(d)):
+                     if d[j][-1] == ')':                         #Recomended (8) #checking if the last element is ')' then appending it to a list
+                            s.append(d[j])
               for p in s:
                      j = p.split('(')
                      c.append(j[0])
               return c
+
 
 def check(s):                                                     #to check if the category is present on the website
        cat=[]
@@ -82,6 +83,7 @@ def check(s):                                                     #to check if t
                      print(f'{i.capitalize()} is present')
               else:
                      print(f'{i.capitalize()} is not present')
+
 
 def products(lnk):
        html = requests.get(lnk, headers=hdr)
@@ -107,10 +109,10 @@ hdr = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/
        'DNT' : '1'}                                              #header used to replicate as a user request rather than python request while accesing websites
 
 
-#locaton(link)                                                    #to find the location
-#ratings(link)                                                    #to find the ratings
-#wp_category=sections(link)                                       #to find the categories from the webpage
-#print(wp_category)                                               #to print webpage category
+locaton(link)                                                    #to find the location
+ratings(link)                                                    #to find the ratings
+wp_category=sections(link)                                       #to find the categories from the webpage
+print(wp_category)                                               #to print webpage category
 #check(wp_category)                                               #to check if certain category is present
-#products(link)
+products(link)
 
