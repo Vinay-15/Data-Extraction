@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+import datetime as dt
 
 def locaton(lnk):                                                #to get the location of the restaurants
        html = requests.get(lnk, headers=hdr)
@@ -117,18 +118,20 @@ def check_products(p):
                      print(f'{product} is absent')
 
 
-link=input('Enter the URL:')
+links=['https://www.zomato.com/bangalore/wowffles-hsr-bangalore/order','https://www.zomato.com/bangalore/prowl-foods-by-tiger-shroff-hsr-bangalore/order','https://www.zomato.com/bangalore/the-thickshake-factory-1-hsr-bangalore/order','https://www.zomato.com/bangalore/wowffles-1-bellandur-bangalore/order','https://www.zomato.com/bangalore/prowl-foods-by-tiger-shroff-sarjapur-road-bangalore/order','https://www.zomato.com/bangalore/the-thickshake-factory-sarjapur-road-bangalore/order','https://www.zomato.com/bangalore/wowffles-koramangala-5th-block-bangalore/order','https://www.zomato.com/bangalore/prowl-foods-by-tiger-shroff-koramangala-5th-block-bangalore/order','https://www.zomato.com/bangalore/the-thickshake-factory-koramangala-5th-block-bangalore/order','https://www.zomato.com/bangalore/wowffles-marathahalli-bangalore/order','https://www.zomato.com/bangalore/prowl-foods-by-tiger-shroff-marathahalli-bangalore/order','https://www.zomato.com/bangalore/the-thickshake-factory-brookefield-bangalore/order','https://www.zomato.com/bangalore/wowffles-1-indiranagar-bangalore/order','https://www.zomato.com/bangalore/prowl-foods-by-tiger-shroff-indiranagar-bangalore/order','https://www.zomato.com/bangalore/the-thick-shake-factory-indiranagar-bangalore/order','https://www.zomato.com/bangalore/wowffles-kalyan-nagar-bangalore/order','https://www.zomato.com/bangalore/prowl-foods-by-tiger-shroff-kalyan-nagar-bangalore/order','https://www.zomato.com/bangalore/the-thickshake-factory-kalyan-nagar-bangalore/order']#input('Enter the URL:')
 hdr = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0',
        'Accept-Language' : 'en-GB,enl;q=0.5',
        'Referer' : 'https://google.com',
        'DNT' : '1'}                                              #header used to replicate as a user request rather than python request while accesing websites
 
-
-#locaton(link)                                                    #to find the location
-#ratings(link)                                                    #to find the ratings
-#wp_category=sections(link)                                       #to find the categories from the webpage
-#print(wp_category)                                               #to print webpage category
+for link in links:
+    locaton(link)                                                    #to find the location
+    ratings(link)                                                    #to find the ratings
+    wp_category=sections(link)                                       #to find the categories from the webpage
+    print(wp_category)                                               #to print webpage category
 #check_categories(wp_category)                                    #to check if certain category is present
-p = products(link)                                               #to get the products of a restaurant
-print(p)
-check_products(p)                                                #to check if a given list of products are present on the webpage
+    p = products(link)                                               #to get the products of a restaurant
+    print(p)
+    a = str(dt.datetime.now()).split()
+    print(a[1])
+#check_products(p)                                                #to check if a given list of products are present on the webpage
