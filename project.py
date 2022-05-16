@@ -70,14 +70,12 @@ class restaurant:
     def check_categories(self, s):                                  #to check if the category is present on the website
         cat = []
         for i in s:
-            if i[
-                -1] == ' ':                                         #zomato links categories are printed as 'Pastas ' <--to remove the last element and append it
+            if i[-1] == ' ':                                         #zomato links categories are printed as 'Pastas ' <--to remove the last element and append it
                 cat.append(i.lower()[:-1])
             else:
                 cat.append(
                     i.lower())                                      #swiggy link categories are printed as 'Pastas' without any extra spaces
-        a = input("Enter the categories list with a ',' between consecutive elements:").split(
-            ',')                                                    #Enter a list of elements seperated with a ','
+        a = input("Enter the categories list with a ',' between consecutive elements:").split(',')  #Enter a list of elements seperated with a ','
         for i in a:
             count = 0
             for j in cat:
@@ -126,10 +124,10 @@ a.ratings()                                                        #to find the 
 
 wp_sections = a.sections()                                         #to find the categories from the webpage
 print(wp_sections)                                                 #to print webpage category
-#a.check_categories(wp_sections)                                    #to check if certain category is present
+a.check_categories(wp_sections)                                    #to check if certain category is present
 
 product = a.products()                                             #to find the products from the webpage
 print(product)                                                     #to print products of the webpage
-#a.check_products(product)                                          #to check if certain product is present
+a.check_products(product)                                          #to check if certain product is present
 a = str(dt.datetime.now()).split()
 print(a[1])
