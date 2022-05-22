@@ -130,7 +130,7 @@ class restaurant:                                                        #Creati
                      t = []
                      for sec in section:
                             title = sec.find('h2').text                  #to get the section names
-                            products = sec.find_all('h3')                #to get all the product names
+                            products = sec.find_all('h3', class_ = "styles_itemNameText__3ZmZZ")#to get all the product names
                             r = []
                             for prod in products:
                                    r.append(prod.text)
@@ -182,13 +182,13 @@ for i in range(len(lnks)):
 
        menu_dict=a.menu()                                                #to get a dictionary with categories and products
        print(a.y)                                                        #to print the dictionary
-       #del a.y['Recommended']                                            #to delete any dictionary elements
-       #print(a.y)
-       #print(len(a.y['Thick shakes']))                                   #to find the number of elements in any section
+       del a.y['Recommended']                                            #to delete any dictionary elements
+       print(a.y['Thick shakes'])
+       print(len(a.y['Thick shakes']))                                   #to find the number of elements in any section
        #print(a.y.keys())                                                 #to print all the section names
        #print(a.y.values())                                               #to print all the product names
 
-       a.availabilty_score()                                             #to get the availabilty score of any section
+       #a.availabilty_score()                                             #to get the availabilty score of any section
 
        #time = str(dt.datetime.now()).split()                             #to get the timestamp after executing each
        #print(time[1])

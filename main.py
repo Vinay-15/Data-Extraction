@@ -1,5 +1,8 @@
 from bs4 import BeautifulSoup
 import requests
+from openpyxl import Workbook, load_workbook
+from openpyxl.styles import PatternFill, Border, Side, Alignment, Protection, Font
+from openpyxl.utils import get_column_letter
 #import datetime as dt
 
 class restaurant:                                                        #Creating a class called restaurant
@@ -18,13 +21,13 @@ class restaurant:                                                        #Creati
                      loc = []
                      for l in locate:
                             loc.append(l.text)                           #getting all elements of the location (Home/India/Bangalore/HSR/)
-                     print(loc[-1])                                      #the last element is always the location of the restaurant
+                     return loc[-1]                                      #the last element is always the location of the restaurant
               elif self.link[12:15] == "zom":                            #if the given link is of zomato follwing lines are executed
                      location = self.soup.find_all('span', class_='sc-ks3f96-1 gETRUR')
                      loc = []
                      for l in location:
                             loc.append(l.text)                           #getting all elements of the location (Home/India/Bangalore/HSR/)
-                     print(loc[4][:len(loc[4]) - 1])
+                     return (loc[4][:len(loc[4]) - 1])
 
 
        def ratings(self):                                                #function to get the ratings of the restaurant
@@ -33,14 +36,14 @@ class restaurant:                                                        #Creati
                      rate = []
                      for r in Ratings:
                             rate.append(r.text)                          #getting all the text from the ratings block
-                     print(f'Ratings = {rate[-1][:3]}⭐')                #the last element is always the location of the restaurant
+                     return (f'{rate[-1][:3]}⭐')                #the last element is always the location of the restaurant
 
               elif self.link[12:15] == "zom":                            #if the given link is of zomato follwing lines are executed
                      Ratings = self.soup.find_all('div', class_='sc-1q7bklc-5 clCBXa')
                      rate = []
                      for r in Ratings:
                             rate.append(r.text)                          #getting all the text from the ratings block
-                     print(f'Ratings = {rate[-1][:3]}⭐')
+                     return (f'{rate[-1][:3]}⭐')
 
 
        def sections(self):                                               #to get the categories sections (left panel)
@@ -130,7 +133,7 @@ class restaurant:                                                        #Creati
                      t = []
                      for sec in section:
                             title = sec.find('h2').text                  #to get the section names
-                            products = sec.find_all('h3')                #to get all the product names
+                            products = sec.find_all('h3', class_ = "styles_itemNameText__3ZmZZ")#to get all the product names
                             r = []
                             for prod in products:
                                    r.append(prod.text)
@@ -162,33 +165,66 @@ class restaurant:                                                        #Creati
 
 
 
-#lnks=['https://www.zomato.com/bangalore/wowffles-hsr-bangalore/order','https://www.zomato.com/bangalore/prowl-foods-by-tiger-shroff-hsr-bangalore/order','https://www.zomato.com/bangalore/the-thickshake-factory-1-hsr-bangalore/order','https://www.zomato.com/bangalore/wowffles-1-bellandur-bangalore/order','https://www.zomato.com/bangalore/prowl-foods-by-tiger-shroff-sarjapur-road-bangalore/order','https://www.zomato.com/bangalore/the-thickshake-factory-sarjapur-road-bangalore/order','https://www.zomato.com/bangalore/wowffles-koramangala-5th-block-bangalore/order','https://www.zomato.com/bangalore/prowl-foods-by-tiger-shroff-koramangala-5th-block-bangalore/order','https://www.zomato.com/bangalore/the-thickshake-factory-koramangala-5th-block-bangalore/order','https://www.zomato.com/bangalore/wowffles-marathahalli-bangalore/order','https://www.zomato.com/bangalore/prowl-foods-by-tiger-shroff-marathahalli-bangalore/order','https://www.zomato.com/bangalore/the-thickshake-factory-brookefield-bangalore/order','https://www.zomato.com/bangalore/wowffles-1-indiranagar-bangalore/order','https://www.zomato.com/bangalore/prowl-foods-by-tiger-shroff-indiranagar-bangalore/order','https://www.zomato.com/bangalore/the-thick-shake-factory-indiranagar-bangalore/order','https://www.zomato.com/bangalore/wowffles-kalyan-nagar-bangalore/order','https://www.zomato.com/bangalore/prowl-foods-by-tiger-shroff-kalyan-nagar-bangalore/order','https://www.zomato.com/bangalore/the-thickshake-factory-kalyan-nagar-bangalore/order']
-lnks=input("Enter list of links seperated with a ',' = ").split(',')
+lnks=['https://www.zomato.com/bangalore/wowffles-hsr-bangalore/order','https://www.zomato.com/bangalore/prowl-foods-by-tiger-shroff-hsr-bangalore/order','https://www.zomato.com/bangalore/the-thickshake-factory-1-hsr-bangalore/order','https://www.zomato.com/bangalore/wowffles-1-bellandur-bangalore/order','https://www.zomato.com/bangalore/prowl-foods-by-tiger-shroff-sarjapur-road-bangalore/order','https://www.zomato.com/bangalore/the-thickshake-factory-sarjapur-road-bangalore/order','https://www.zomato.com/bangalore/wowffles-koramangala-5th-block-bangalore/order','https://www.zomato.com/bangalore/prowl-foods-by-tiger-shroff-koramangala-5th-block-bangalore/order','https://www.zomato.com/bangalore/the-thickshake-factory-koramangala-5th-block-bangalore/order','https://www.zomato.com/bangalore/wowffles-marathahalli-bangalore/order','https://www.zomato.com/bangalore/prowl-foods-by-tiger-shroff-marathahalli-bangalore/order','https://www.zomato.com/bangalore/the-thickshake-factory-brookefield-bangalore/order','https://www.zomato.com/bangalore/wowffles-1-indiranagar-bangalore/order','https://www.zomato.com/bangalore/prowl-foods-by-tiger-shroff-indiranagar-bangalore/order','https://www.zomato.com/bangalore/the-thick-shake-factory-indiranagar-bangalore/order','https://www.zomato.com/bangalore/wowffles-kalyan-nagar-bangalore/order','https://www.zomato.com/bangalore/prowl-foods-by-tiger-shroff-kalyan-nagar-bangalore/order','https://www.zomato.com/bangalore/the-thickshake-factory-kalyan-nagar-bangalore/order']
+#lnks=input("Enter list of links seperated with a ',' = ").split(',')
+wb = Workbook()
+ws = wb.active
+ws.title = "Store Data"
+ws.merge_cells('F1:I2')
+ws['F1'].value = 'TTSF Cloud One'
+ws['F1'].font = Font(bold=True, size=22, color='00666699',underline="single")
+j='3'
 for i in range(len(lnks)):
 
        a=restaurant(lnks[i])
-       a.__init__(lnks[i])
 
-       #a.location()                                                      #to find the location
-       #a.ratings()                                                       #to find the ratings
+       locate = a.location()                                                      #to find the location
+       ws['A' + j] = 'Location :'
+       ws['A' + j].font = Font(bold=True, size=14, color='00008080')
+       ws['B' + j] = locate
+       ws['B' + j].font = Font(size=12, color='00666699')
+       j=str(int(j)+1)
+
+       rate = a.ratings()                                                       #to find the ratings
+       ws['A' + j] = 'Ratings :'
+       ws['A' + j].font = Font(bold=True, size=14, color='00008080')
+       ws['B' + j] = rate
+       ws['B' + j].font = Font(size=12, color='00666699')
+       j = str(int(j) + 2)
+
+       ws['A' + j] = 'Categories with Products'
+       ws['A' + j].font = Font(bold=True, size=16, color='00666699', italic=True)
+       j = str(int(j) + 1)
 
        wp_sections=a.sections()                                          #to find the categories from the webpage
        #print(wp_sections)                                                #to print webpage category
        #a.check_categories(wp_sections)                                   #to check if certain category is present
+       #ws.append(wp_sections)
 
        product=a.products()                                              #to find the products from the webpage
        #print(product)                                                    #to print products of the webpage
        #a.check_products(product)                                         #to check if certain product is present
+       #ws.append(product)
 
        menu_dict=a.menu()                                                #to get a dictionary with categories and products
-       print(a.y)                                                        #to print the dictionary
-       #del a.y['Recommended']                                            #to delete any dictionary elements
-       #print(a.y)
+       #print(a.y)                                                        #to print the dictionary
+       del a.y['Recommended']                                            #to delete any dictionary elements
+       for key in menu_dict:
+           k = key + ' : '
+           products = list(menu_dict[key])
+           ws.append([k]+products)
+           ws['A' + j].font = Font(bold=True, size=12, color='00993300')
+           j = str(int(j) + 1)
+       #ws.append(menu_dict)
        #print(len(a.y['Thick shakes']))                                   #to find the number of elements in any section
        #print(a.y.keys())                                                 #to print all the section names
        #print(a.y.values())                                               #to print all the product names
 
-       a.availabilty_score()                                             #to get the availabilty score of any section
+       #a.availabilty_score()                                             #to get the availabilty score of any section
 
        #time = str(dt.datetime.now()).split()                             #to get the timestamp after executing each
        #print(time[1])
+       j = str(int(j) + 3)
+
+ws.column_dimensions['A'].width = 25
+wb.save("Restaurant_data.xlsx")
